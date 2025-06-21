@@ -37,7 +37,6 @@ class MyListener:
             self.print_devices()
 
     def update_service(self, zeroconf, type, name):
-        # Optional: You can implement refresh logic here
         pass
 
 zeroconf = Zeroconf()
