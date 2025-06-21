@@ -8,12 +8,12 @@ import time
 
 CONFIG_FILE = "config.json"
 
-# --- Step 1: Parse Arguments ---
+# --- Parse Arguments ---
 parser = argparse.ArgumentParser(description="LANShare mDNS registration")
 parser.add_argument('--rename', action='store_true', help='Rename your display name')
 args = parser.parse_args()
 
-# --- Step 2: Load or Set Display Name ---
+# --- Load or Set Display Name ---
 def get_display_name():
     if os.path.exists(CONFIG_FILE) and not args.rename:
         with open(CONFIG_FILE, "r") as f:
@@ -27,13 +27,13 @@ def get_display_name():
 
 user_name = get_display_name()
 
-# --- Step 3: System Information ---
+# --- System Information ---
 device_name = socket.gethostname()
 os_name = platform.system()
 os_version = platform.version()
 ip_address = socket.gethostbyname(device_name)
 
-# --- Step 4: mDNS Properties ---
+# --- mDNS Properties ---
 desc = {
     "name": user_name,
     "device": device_name,
@@ -51,7 +51,7 @@ info = ServiceInfo(
     server=f"{user_name}.local."
 )
 
-# --- Step 5: Register Service ---
+# --- Register Service ---
 zeroconf = Zeroconf()
 print(f"[+] Registering mDNS service as '{user_name}._lanShare._tcp.local.' pointing to {ip_address}")
 zeroconf.register_service(info)
