@@ -1,0 +1,5 @@
+#Virtual Environment
+venv/
+
+#User Data
+config.json
