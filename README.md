@@ -1,6 +1,3 @@
-Here’s your updated **README.md** for the current state of your LANShare project, reflecting the CLI interface, installation via `pyproject.toml`, and best practices:
-
----
 
 # 🖧 lanShare
 
