@@ -3,3 +3,9 @@ venv/
 
 #User Data
 config.json
+
+#Python Cache files
+__pycache__/
+
+#Editable/development install artifacts
+lanshare.egg-info/
