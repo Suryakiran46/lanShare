@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lanshare"
+version = "0.1.0"
+description = "LANShare CLI tool"
+dependencies = [
+    "zeroconf"
+]
+
+[project.scripts]
+lanshare = "lanshare.cli:main"

@@ -1,2 +1,3 @@
 ifaddr==0.2.0
+-e git+ssh://git@github.com/Suryakiran46/lanShare.git@e9415282c7b978f7b0fce29385fc1f4fe95009ea#egg=lanshare
 zeroconf==0.147.0
