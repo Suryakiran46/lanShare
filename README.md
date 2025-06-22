@@ -1,25 +1,30 @@
+Here’s your updated **README.md** for the current state of your LANShare project, reflecting the CLI interface, installation via `pyproject.toml`, and best practices:
+
+---
 
 # 🖧 lanShare
 
-**lanShare** is a lightweight Python tool for discovering devices on your local network using mDNS (Multicast DNS). Devices running lanShare will broadcast their presence and basic system information, allowing you to see other active lanShare users on the same LAN.
+**lanShare** is a lightweight Python CLI tool for discovering devices on your local network using mDNS (Multicast DNS). Devices running lanShare broadcast their presence and system information, allowing you to see other active lanShare users on the same LAN in real-time.
 
 ---
 
 ## 🚀 Features
 
 - 🌐 **mDNS Device Discovery:**  
-  Broadcast your device and discover other lanShare-enabled devices on your local network using mDNS.
+  Broadcast your device and discover other lanShare-enabled devices on the LAN using mDNS.
 - 🏷️ **Custom Display Name:**  
-  Set and update your display name, which is visible to others on the network.
+  Set and update your display name via the CLI; the name is visible to others on the network.
 - 🖥️ **System Metadata Sharing:**  
-  Automatically shares your device hostname, OS, and version with other users.
+  Shares your device hostname, OS, and version with other users.
 - 🔄 **Real-Time Updates:**  
-  Devices are shown as soon as they join or leave the network.
-- ⚙️ **Easy Configuration:**  
-  Stores your display name in a simple `config.json` file for persistence.
+  Devices appear and disappear in the live-updating device list as they join or leave the network.
+- ⚙️ **Interactive CLI:**  
+  Use the `lanshare` command to enter an interactive shell with commands to start mDNS, scan devices, rename, and exit.
 - ✅ **Cross-Platform Ready:**  
-  Works on **Linux**, **Windows**, and **Mac** (Python 3.8+).  
-  *(Note: Current development/testing is focused on a single platform.)*
+  Works on Linux, Windows, and Mac (Python 3.8+).  
+  *(Current development/testing is focused on Linux.)*
+- 💾 **Persistent Configuration:**  
+  Stores your display name in a `config.json` file for persistence.
 
 ---
 
@@ -39,37 +44,70 @@ python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### 3. Install dependencies and the CLI tool
+
+If you’re using the included `pyproject.toml`:
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 ```
+
+This will make the `lanshare` command available globally in your environment.
 
 ---
 
 ## 🧪 Usage
 
-### Register and broadcast your device
+Start the CLI by running:
 
 ```bash
-python mDNS.py
+lanshare
 ```
-- On first run, you will be prompted to enter a display name.
-- Your device will now be discoverable to other lanShare users on the LAN.
 
-### Change your display name
+You will enter the `lanshare>` prompt where you can run commands:
 
-```bash
-python mDNS.py --rename
+- `start` – Start broadcasting your device on the LAN via mDNS.
+- `scan` – Discover other lanShare devices on the LAN with a live-updating list.
+- `stopscan` – Stop the live device scan.
+- `rename` – Change your display name and restart mDNS broadcasting.
+- `exit` or `Ctrl+D` – Exit the CLI and stop all background services.
+
+### Example session
+
 ```
-- Updates your display name and re-broadcasts your device.
+lanshare> start
+Starting mDNS service in background...
+[+] Registering mDNS service as 'YourName._lanShare._tcp.local.' pointing to 192.168.1.x
+
+lanshare> scan
+Starting device scan (type 'stopscan' to stop)...
+----- Devices on Network -----
+Name         IP Address      Status
+-----------------------------------
+YourName     192.168.1.x     Active
+OtherDevice  192.168.1.y     Active
+
+(Type commands below. Use 'stopscan' to stop scanning.)
+
+lanshare> rename
+Enter your display name: NewName
+Restarting mDNS with new display name...
+[+] Registering mDNS service as 'NewName._lanShare._tcp.local.' pointing to 192.168.1.x
+
+lanshare> stopscan
+Stopping device scan...
+
+lanshare> exit
+Exiting LANShare CLI.
+```
 
 ---
 
 ## ⚙️ Configuration
 
-- The application creates a `config.json` file to store your display name.
-- You can update your name anytime using the `--rename` flag.
+- The CLI stores your display name in a `config.json` file in the current directory.
+- The display name is used for mDNS broadcasting and shown to other devices.
+- You can update your display name anytime using the `rename` command in the CLI.
 
 ---
 
@@ -79,7 +117,7 @@ python mDNS.py --rename
   LAN chat system for real-time messaging between detected devices.
 - 🌐 **Future:**  
   - Cross-platform chat support  
-  - File sharing    
+  - File sharing  
   - Security improvements
 
 ---
@@ -92,4 +130,5 @@ Contributions and suggestions are welcome! Please open an issue or submit a pull
 
 **Note:**  
 Currently, lanShare only discovers and displays devices running lanShare with mDNS enabled. Chat and other features are under development.
+
 ---
