@@ -100,4 +100,9 @@ class LanShareShell(cmd.Cmd):
         pass
 
 def main():
-    LanShareShell().cmdloop()
+    shell=LanShareShell()
+    try:
+        shell.cmdloop()
+    except KeyboardInterrupt:
+        print("\nInterrupted. Exiting...")
+        shell.do_exit(None)
