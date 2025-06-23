@@ -3,9 +3,26 @@ import platform
 import json
 import os
 import time
+from pathlib import Path
 from zeroconf import Zeroconf, ServiceInfo
 
-CONFIG_FILE = "config.json"
+
+
+def get_config_path():
+    system=platform.system()
+    home=Path.home()
+    if system=="Windows":
+        base_dir=Path(os.environ.get("APPDATA",home))
+        config_dir=base_dir / "lanshare"
+    elif system in ("Linux","Darwin"):
+        config_dir = home / ".config" / "lanshare"
+    else:
+        #Fallback for unknown/uncommon Oses
+        config_dir = home/".lanshare"
+    config_dir.mkdir(parents=True,exist_ok=True)
+    return config_dir/"config.json"
+
+CONFIG_FILE = get_config_path()
 
 def get_display_name():
     if os.path.exists(CONFIG_FILE):
