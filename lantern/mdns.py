@@ -13,12 +13,12 @@ def get_config_path():
     home=Path.home()
     if system=="Windows":
         base_dir=Path(os.environ.get("APPDATA",home))
-        config_dir=base_dir / "lanshare"
+        config_dir=base_dir / "lantern"
     elif system in ("Linux","Darwin"):
-        config_dir = home / ".config" / "lanshare"
+        config_dir = home / ".config" / "lantern"
     else:
         #Fallback for unknown/uncommon Oses
-        config_dir = home/".lanshare"
+        config_dir = home/".lantern"
     config_dir.mkdir(parents=True,exist_ok=True)
     return config_dir/"config.json"
 
@@ -54,15 +54,15 @@ def run_mdns(stop_event):
         "type": "lanChat"
     }
     info = ServiceInfo(
-        type_="_lanShare._tcp.local.",
-        name=f"{user_name}._lanShare._tcp.local.",
+        type_="_lantern._tcp.local.",
+        name=f"{user_name}._lantern._tcp.local.",
         port=8080,
         addresses=[socket.inet_aton(ip_address)],
         properties=desc,
         server=f"{user_name}.local."
     )
     zeroconf = Zeroconf()
-    print(f"[+] Registering mDNS service as '{user_name}._lanShare._tcp.local.' pointing to {ip_address}")
+    print(f"[+] Registering mDNS service as '{user_name}._lantern._tcp.local.' pointing to {ip_address}")
     zeroconf.register_service(info)
     try:
         while not stop_event.is_set():

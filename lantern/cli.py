@@ -1,11 +1,11 @@
 import cmd
 import threading
-from lanshare.mdns import run_mdns, get_display_name, set_display_name
-from lanshare.scan import run_scan
+from lantern.mdns import run_mdns, get_display_name, set_display_name
+from lantern.scan import run_scan
 
-class LanShareShell(cmd.Cmd):
-    intro = "Welcome to LANShare CLI. Type help or ? to list commands.\n"
-    prompt = "lanshare> "
+class lanternShell(cmd.Cmd):
+    intro = "Welcome to lantern CLI. Type help or ? to list commands.\n"
+    prompt = "lantern> "
 
     def __init__(self):
         super().__init__()
@@ -81,7 +81,7 @@ class LanShareShell(cmd.Cmd):
 
     def do_exit(self, arg):
         """Exit the CLI and stop background services."""
-        print("Exiting LANShare CLI.")
+        print("Exiting lantern CLI.")
         if self.mdns_thread and self.mdns_thread.is_alive():
             print("Shutting down mDNS service...")
             self.mdns_stop_event.set()
@@ -100,7 +100,7 @@ class LanShareShell(cmd.Cmd):
         pass
 
 def main():
-    shell=LanShareShell()
+    shell=lanternShell()
     try:
         shell.cmdloop()
     except KeyboardInterrupt:

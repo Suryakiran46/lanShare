@@ -28,7 +28,7 @@ def run_scan(stop_event, refresh_interval=2):
             pass
     zeroconf = Zeroconf()
     listener = MyListener(zeroconf)
-    browser = ServiceBrowser(zeroconf, "_lanShare._tcp.local.", listener)
+    browser = ServiceBrowser(zeroconf, "_lantern._tcp.local.", listener)
     try:
         while not stop_event.is_set():
             clear_terminal()
