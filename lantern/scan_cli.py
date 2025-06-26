@@ -35,7 +35,7 @@ async def run_scan_prompt_toolkit():
         nonlocal console_text
         lines=console_panel.text.strip().splitlines()
         last_line=lines[-1].strip()
-        command=last_line[9:].strip()
+        command=last_line[8:].strip()
         
         if command=="exit":
             stop_event.set()
