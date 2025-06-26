@@ -11,11 +11,12 @@ function ReceivedMessage({ message }) {
     )
 }
 
-function SentMessage({ message }) {
+function SentMessage({ message, error }) {
     return (
         <div className="flex justify-end">
-            <div className="px-3 py-2 bg-secondary-color w-fit rounded-xl rounded-tr-none ml-5">
+            <div className="flex flex-col items-end px-3 py-2 bg-secondary-color w-fit rounded-xl rounded-tr-none ml-5">
                 <h1>{message}</h1>
+                {error && <span className="text-red text-xs">{error}</span>}
             </div>
         </div>
     )
@@ -66,7 +67,7 @@ function ChatSide() {
           <ReceivedMessage message="Good luck with it! Let me know when you have a beta version ready. I'd love to test it out" />
           <SentMessage message="Will do! Thanks for listening to me ramble about code stuff 😅" />
           <ReceivedMessage message="Anytime! That's what friends are for. Catch you later!" />
-          <SentMessage message="See ya! 👋" />
+          <SentMessage message="See ya! 👋" error="Error! Conn closed"/>
           <div ref={messagesEndRef} />
         </div>
         <ChatBar />

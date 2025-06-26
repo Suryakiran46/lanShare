@@ -61,3 +61,7 @@ img {
 #chat-body >div>div {
   max-width: 400px;
 }
+
+.text-red {
+  color: #DF5853;
+}

@@ -4,13 +4,15 @@ import profile from '../assets/profile.svg'
 function SidebarItem() {
     return (
         <div className='flex items-center justify-between mx-5 py-2 gap-2'>
-            <img src={profile} alt="profile" className='w-1/5 max-w-15' />
-            <div className='flex flex-col items-center w-3/5'>
-                <span className='text-start font-bold w-full text-lg'>John Doe</span>
-                <span className='text-start w-full text-ellipsis line-clamp-1'>You:Daa enthaan paruvadi busy aano</span>
+            <div className='flex items-center gap-2'>
+                <img src={profile} alt="profile" className='max-w-15' />
+                <div className='flex flex-col items-center '>
+                    <span className='text-start font-bold w-full text-lg'>John Doe</span>
+                    <span className='text-start w-full text-ellipsis line-clamp-1'>You:Daa enthaan paruvadi busy aano</span>
+                </div>
             </div>
-            <div className='w-1/5 h-full'>
-                <span className='text-end text-xs'>7:38 AM</span>
+            <div className='w-fit h-full'>
+                <span className='text-end text-xs whitespace-nowrap w-fit'>7:38 AM</span>
             </div>
         </div>
     )
