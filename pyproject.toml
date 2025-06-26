@@ -3,12 +3,13 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "lanshare"
+name = "lantern"
 version = "0.1.0"
-description = "LANShare CLI tool"
+description = "lantern CLI tool"
 dependencies = [
-    "zeroconf"
+    "zeroconf",
+    "prompt_toolkit"
 ]
 
 [project.scripts]
-lanshare = "lanshare.cli:main"
+lantern = "lantern.cli:main"
