@@ -4,8 +4,8 @@ from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.dimension import Dimension
 from prompt_toolkit.layout import Layout,HSplit,Window
 from prompt_toolkit.widgets import TextArea,Label,Box
-from lanshare.scan import get_live_devices,start_scan
-from lanshare.mdns import set_display_name
+from lantern.scan import get_live_devices,start_scan
+from lantern.mdns import set_display_name
 
 def device_list():
     devices=get_live_devices()
