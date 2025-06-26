@@ -1,5 +1,0 @@
-Metadata-Version: 2.4
-Name: lanshare
-Version: 0.1.0
-Summary: LANShare CLI tool
-Requires-Dist: zeroconf
