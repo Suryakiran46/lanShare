@@ -1,7 +1,9 @@
 import cmd
+import socket
 import threading
 from lantern.mdns import run_mdns, get_display_name, set_display_name
-from lantern.scan import start_scan
+from lantern.scan import start_scan, get_live_devices
+from lantern.connection import request, request_handler
 
 class lanternShell(cmd.Cmd):
     intro = "Welcome to lantern CLI. Type help or ? to list commands.\n"
@@ -60,6 +62,20 @@ class lanternShell(cmd.Cmd):
         finally:
             self.renaming = False
 
+    def do_chat(self, arg):
+        """Start a chat session with another device on the LAN."""
+        devices = get_live_devices()
+        for dev in devices:
+            if dev["name"] == arg:
+                ip = dev["ip"]
+                if dev["status"] != "Inactive" :
+                    request(ip, dev["name"], dev["status"])
+                else:
+                    print(f"Device {arg} is inactive. Cannot start chat.\n")
+                    return
+            else:
+                print("Device not found. \n")
+
     def do_scan(self, arg):
         """Scan for devices on the LAN using mDNS (live refresh with prompt_toolkit)."""
         import asyncio
@@ -101,6 +117,7 @@ class lanternShell(cmd.Cmd):
     def emptyline(self):
         pass
 
+threading.Thread(target=request_handler, daemon=True).start()
 def main():
     shell=lanternShell()
     try:
