@@ -1,7 +1,7 @@
 import cmd
 import threading
 from lantern.mdns import run_mdns, get_display_name, set_display_name
-from lantern.scan import run_scan
+from lantern.scan import start_scan
 
 class lanternShell(cmd.Cmd):
     intro = "Welcome to lantern CLI. Type help or ? to list commands.\n"
@@ -63,7 +63,7 @@ class lanternShell(cmd.Cmd):
     def do_scan(self, arg):
         """Scan for devices on the LAN using mDNS (live refresh with prompt_toolkit)."""
         import asyncio
-        from lanshare.scan_cli import run_scan_prompt_toolkit
+        from lantern.scan_cli import run_scan_prompt_toolkit
         try:
             asyncio.run(run_scan_prompt_toolkit())
         except KeyboardInterrupt:

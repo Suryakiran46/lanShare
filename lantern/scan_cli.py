@@ -29,7 +29,7 @@ async def run_scan_prompt_toolkit():
     layout=Layout(HSplit([Box(height=Dimension(weight=1),body=device_panel,padding=0),Window(height=1,char='-'),Label("Type 'exit' to leave to the lanShare CLI and 'help' for list of commands\n"),Box(body=console_panel,padding=0,height=Dimension(weight=1))]))
     console_panel.buffer.cursor_position=len(console_panel.text)
     kb=KeyBindings()
-    safe_pos=[0]
+    safe_pos=[len(console_panel.text)]
     @kb.add('enter')
     def handle_enter(event):
         nonlocal console_text

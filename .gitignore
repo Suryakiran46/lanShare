@@ -9,3 +9,4 @@ __pycache__/
 
 #Editable/development install artifacts
 lantern.egg-info/
+lanshare.egg-info
