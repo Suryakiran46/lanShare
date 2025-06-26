@@ -24,9 +24,9 @@ async def run_scan_prompt_toolkit():
     start_scan()
     stop_event=asyncio.Event()
     device_panel=TextArea(height=Dimension(weight=1),focusable=False,read_only=True,dont_extend_height=True)
-    console_text="lanshare>"
+    console_text="lantern>"
     console_panel=TextArea(height=Dimension(weight=1),scrollbar=True,focus_on_click=True,text=console_text,dont_extend_height=True)
-    layout=Layout(HSplit([Box(height=Dimension(weight=1),body=device_panel,padding=0),Window(height=1,char='-'),Label("Type 'exit' to leave to the lanShare CLI and 'help' for list of commands\n"),Box(body=console_panel,padding=0,height=Dimension(weight=1))]))
+    layout=Layout(HSplit([Box(height=Dimension(weight=1),body=device_panel,padding=0),Window(height=1,char='-'),Label("Type 'exit' to leave to the lantern CLI and 'help' for list of commands\n"),Box(body=console_panel,padding=0,height=Dimension(weight=1))]))
     console_panel.buffer.cursor_position=len(console_panel.text)
     kb=KeyBindings()
     safe_pos=[len(console_panel.text)]
@@ -46,7 +46,7 @@ async def run_scan_prompt_toolkit():
             console_text+="\n'start': Start mDNS service (register your device on LAN) in the background.\n'rename': Change your display name and restart mDNS.\n'exit': To exit from 'scan' mode"
         else:
             console_text+=f"{command}\nCommand not Defined"
-        console_text+="\nlanshare>"
+        console_text+="\nlantern>"
         console_panel.text=console_text
         safe_pos[0]=len(console_panel.text)
         

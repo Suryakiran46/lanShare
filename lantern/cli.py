@@ -69,7 +69,7 @@ class lanternShell(cmd.Cmd):
         except KeyboardInterrupt:
             print("\nScan Interrupted\n")
         else:
-            print("\nExited 'scan' mode returning to lanshare shell\n")
+            print("\nExited 'scan' mode returning to lantern shell\n")
         
         
     def do_stopscan(self, arg):

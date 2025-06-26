@@ -28,4 +28,4 @@ class MyListener:
         self.add_service(zeroconf,type,name)
 def start_scan():
     zeroconf = Zeroconf()
-    ServiceBrowser(zeroconf, "_lanShare._tcp.local.", MyListener())
+    ServiceBrowser(zeroconf, "_lantern._tcp.local.", MyListener())

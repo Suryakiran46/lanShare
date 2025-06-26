@@ -5,9 +5,9 @@ from prompt_toolkit import PromptSession, print_formatted_text
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-# Receiver
+#__Receiver__
 IP = '0.0.0.0'      # Listen on all interfaces
-PORT = 8080
+PORT = 8090
 server.bind((IP, PORT))
 print("Server started on " + IP + ":" + str(PORT))
 

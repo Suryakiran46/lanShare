@@ -5,9 +5,9 @@ from prompt_toolkit import print_formatted_text, PromptSession
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-# Sender
-IP = '127.0.0.1'    #Receivers IP
-PORT = 8080
+#__Sender__
+IP = '192.168.1.5'    #Receivers IP
+PORT = 8090
 client.connect((IP, PORT))
 print("Connected to server at " + IP + ":" + str(PORT))
 
