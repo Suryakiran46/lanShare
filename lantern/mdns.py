@@ -45,7 +45,10 @@ def run_mdns(stop_event):
     device_name = socket.gethostname()
     os_name = platform.system()
     os_version = platform.version()
-    ip_address = socket.gethostbyname(device_name)
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(('8.8.8.8', 80))
+    ip_address = s.getsockname()[0]
     desc = {
         "name": user_name,
         "device": device_name,
