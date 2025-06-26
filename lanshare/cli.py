@@ -1,7 +1,7 @@
 import cmd
 import threading
 from lanshare.mdns import run_mdns, get_display_name, set_display_name
-from lanshare.scan import run_scan
+
 
 class LanShareShell(cmd.Cmd):
     intro = "Welcome to LANShare CLI. Type help or ? to list commands.\n"
@@ -61,15 +61,17 @@ class LanShareShell(cmd.Cmd):
             self.renaming = False
 
     def do_scan(self, arg):
-        """Scan for devices on the LAN using mDNS (live refresh)."""
-        if self.scan_thread and self.scan_thread.is_alive():
-            print("Scan is already running.")
-            return
-        print("Starting device scan (type 'stopscan' to stop)...")
-        self.scan_stop_event.clear()
-        self.scan_thread = threading.Thread(target=run_scan, args=(self.scan_stop_event,), daemon=True)
-        self.scan_thread.start()
-
+        """Scan for devices on the LAN using mDNS (live refresh with prompt_toolkit)."""
+        import asyncio
+        from lanshare.scan_cli import run_scan_prompt_toolkit
+        try:
+            asyncio.run(run_scan_prompt_toolkit())
+        except KeyboardInterrupt:
+            print("\nScan Interrupted\n")
+        else:
+            print("\nExited 'scan' mode returning to lanshare shell\n")
+        
+        
     def do_stopscan(self, arg):
         """Stop the live device scan."""
         if self.scan_thread and self.scan_thread.is_alive():
