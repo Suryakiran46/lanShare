@@ -32,9 +32,9 @@ def request_handler():
     reply = input(message)
     print("\n",reply," : Reply Test\n")
     client.send(reply.encode('utf-8'))
-    
+
     if reply.lower() == 'y':
-        receiver(client_ip)
+        receiver()
 
     client.close()
     listener.close()

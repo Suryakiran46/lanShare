@@ -5,13 +5,14 @@ from prompt_toolkit import PromptSession, print_formatted_text
 
 active = True
 
-def receiver(IP):
+def receiver():
     global active
     session = PromptSession()
-    
+
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
+    IP = '0.0.0.0'
     PORT = 8090
     print("\nServer.py Test\n")
     server.bind((IP, PORT))

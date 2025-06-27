@@ -68,16 +68,18 @@ class lanternShell(cmd.Cmd):
     def do_chat(self, arg):
         """Start a chat session with another device on the LAN."""
         devices = get_live_devices()
+        found = False
         for dev in devices:
             if dev["name"] == arg:
+                found = True
                 ip = dev["ip"]
                 if dev["status"] != "Inactive" :
                     request(ip, dev["name"], dev["status"])
                 else:
                     print(f"Device {arg} is inactive. Cannot start chat.\n")
                     return
-            else:
-                print("Device not found. \n")
+        if found == False:
+            print("Device not found. \n")
 
     def do_scan(self, arg):
         """Scan for devices on the LAN using mDNS (live refresh with prompt_toolkit)."""

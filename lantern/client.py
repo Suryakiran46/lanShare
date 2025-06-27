@@ -15,7 +15,7 @@ def sender(IP):
    #Receivers IP
     PORT = 8090
     print("\nClient.py Test\n")
-    sleep(3)
+    sleep(10)
     client.connect((IP, PORT))
     print("Connected to server at " + IP + ":" + str(PORT))
 
