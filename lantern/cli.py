@@ -1,9 +1,11 @@
 import cmd
 import socket
 import threading
+import time
 from lantern.mdns import run_mdns, get_display_name, set_display_name
 from lantern.scan import start_scan, get_live_devices
 from lantern.connection import request, request_handler
+
 
 class lanternShell(cmd.Cmd):
     intro = "Welcome to lantern CLI. Type help or ? to list commands.\n"
@@ -36,7 +38,8 @@ class lanternShell(cmd.Cmd):
         self.mdns_stop_event.clear()
         self.mdns_thread = threading.Thread(target=run_mdns, args=(self.mdns_stop_event,), daemon=True)
         self.mdns_thread.start()
-
+        time.sleep(1)
+        
     def do_rename(self, arg):
         """Change your display name and restart mDNS."""
         if self.renaming:
