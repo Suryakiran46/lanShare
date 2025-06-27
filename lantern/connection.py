@@ -1,5 +1,6 @@
 import socket
-
+from lantern.server import receiver
+from lantern.client import sender
 
 def close_connection():
     pass
@@ -10,8 +11,10 @@ def request(ip, name, status):
     client.connect((ip, port))
     client.send(f"Connection request from {name} (Y/n): ".encode('utf-8'))
     reply = client.recv(1024).decode('utf-8')
+    print("\nRequest Test\n")
     if reply.lower() == "y":
-        print(f"Chat session started wsith {name} at {ip}.")
+        print(f"Chat session started with {name} at {ip}.")
+        sender(ip)
     else:
         print(f"Chat session declined by {name} at {ip}.")
         
@@ -24,13 +27,14 @@ def request_handler():
     listener.bind((ip, port))
     listener.listen()
     client, address = listener.accept()
+    client_ip = address[0]
     message = client.recv(1024).decode('utf-8')
     reply = input(message)
-
-    if reply.lower() == 'y':
-        pass                    # Check if its bussy, if its busy, close the connection
-                                # Otherwise, start the chat session
-
+    print("\n",reply," : Reply Test\n")
     client.send(reply.encode('utf-8'))
+    
+    if reply.lower() == 'y':
+        receiver(client_ip)
+
     client.close()
     listener.close()
