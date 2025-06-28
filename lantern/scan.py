@@ -15,7 +15,7 @@ class MyListener:
             dev = {
                 "name": props.get("name", "Unknown"),
                 "ip": ip,
-                "status": "Active"
+                "status": props.get("status", "Active")
             }
             # Avoid duplicates
             for existing in _devices:

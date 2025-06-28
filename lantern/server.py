@@ -1,6 +1,7 @@
 import socket
 import threading
 from prompt_toolkit import PromptSession, print_formatted_text
+from lantern.mdns import update_status
 
 
 active = True
@@ -21,6 +22,7 @@ def receiver():
 
     client, address = server.accept()
     print(address[0] + " connected.")
+    update_status("Busy")
 
     def message_handler():
         global active

@@ -6,7 +6,8 @@ import time
 from pathlib import Path
 from zeroconf import Zeroconf, ServiceInfo
 
-
+zeroconf = None
+current_info = None
 
 def get_config_path():
     system=platform.system()
@@ -36,7 +37,8 @@ def set_display_name(new_name):
     with open(CONFIG_FILE, "w") as f:
         json.dump({"username": new_name}, f)
 
-def run_mdns(stop_event):
+def run_mdns(stop_event, status ="Active"):
+    global zeroconf, current_info
     user_name = get_display_name()
     if not user_name:
         print("Error: Username not set in config.json.")
@@ -49,12 +51,13 @@ def run_mdns(stop_event):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(('8.8.8.8', 80))
     ip_address = s.getsockname()[0]
+    s.close()
+    
     desc = {
         "name": user_name,
         "device": device_name,
         "os": f"{os_name} {os_version}",
-        "version": "1.0.0",
-        "type": "lanChat"
+        "status": "Active"
     }
     info = ServiceInfo(
         type_="_lantern._tcp.local.",
@@ -65,6 +68,7 @@ def run_mdns(stop_event):
         server=f"{user_name}.local."
     )
     zeroconf = Zeroconf()
+    current_info = info
     print(f"[+] Registering mDNS service as '{user_name}._lantern._tcp.local.' pointing to {ip_address}")
     zeroconf.register_service(info)
     try:
@@ -74,3 +78,28 @@ def run_mdns(stop_event):
         print("\n[-] Shutting down mDNS...")
         zeroconf.unregister_service(info)
         zeroconf.close()
+
+def update_status(new_status):
+    global zeroconf, current_info
+    if not zeroconf or not current_info:
+        print("Zeroconf or service not initialized.")
+        return
+
+    # Copy existing props
+    props = {k.decode() if isinstance(k, bytes) else k: v.decode() if isinstance(v, bytes) else v
+             for k, v in current_info.properties.items()}
+
+    props["status"] = new_status  # Update status
+
+    new_info = ServiceInfo(
+        type_=current_info.type,
+        name=current_info.name,
+        addresses=current_info.addresses,
+        port=current_info.port,
+        properties=props,
+        server=current_info.server
+    )
+
+    zeroconf.update_service(new_info)
+    current_info = new_info 
+    print(f"[+] mDNS status updated to '{new_status}'")

@@ -26,15 +26,17 @@ def request_handler():
     listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     listener.bind((ip, port))
     listener.listen()
-    client, address = listener.accept()
-    client_ip = address[0]
-    message = client.recv(1024).decode('utf-8')
-    reply = input(message)
-    print("\n",reply," : Reply Test\n")
-    client.send(reply.encode('utf-8'))
+    while True:
+        client, address = listener.accept()
+        client_ip = address[0]
+        message = client.recv(1024).decode('utf-8')
+        reply = input(message)
+        print("\n",reply," : Reply Test\n")
+        client.send(reply.encode('utf-8'))
 
-    if reply.lower() == 'y':
-        receiver()
+        if reply.lower() == 'y':
+            client.close()
+            listener.close()
+            receiver()
 
-    client.close()
-    listener.close()
+    
