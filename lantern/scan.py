@@ -26,6 +26,16 @@ class MyListener:
     def update_service(self,zeroconf, type,name):
         #Handles a warning
         self.add_service(zeroconf,type,name)
+
+    def remove_service(self, zeroconf, type, name):
+    # Mark the device as Inactive by matching the service name
+        for dev in _devices:
+            if dev.get("name") and f"{dev['name']}._lantern._tcp.local." == name:
+                dev["status"] = "Inactive"
+                return
+
+
+
 def start_scan():
     zeroconf = Zeroconf()
     ServiceBrowser(zeroconf, "_lantern._tcp.local.", MyListener())
