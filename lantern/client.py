@@ -28,6 +28,7 @@ def sender(IP):
             message=client.recv(1024).decode('utf-8')
             if message == "__EXIT__":
                 print("\nServer has exited the chat. Press Enter to exit.")
+                update_status("Active")
                 active = False
                 break
             else:       
@@ -42,6 +43,7 @@ def sender(IP):
             if send == '/exit':
                 client.send("__EXIT__".encode('utf-8'))
                 print("Exiting chat.")
+                update_status("Active")
                 active = False
                 break
             elif send == '/help':
@@ -55,4 +57,5 @@ def sender(IP):
     except:
         pass
     client.close()
+    
 

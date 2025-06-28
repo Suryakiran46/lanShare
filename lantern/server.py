@@ -30,6 +30,7 @@ def receiver():
             message=client.recv(1024).decode('utf-8')
             if message == "__EXIT__":
                 print("\nClient has exited the chat. Press Enter to exit.")
+                update_status("Active")
                 active = False
                 break
             else:
@@ -44,6 +45,7 @@ def receiver():
             if send == '/exit':
                 client.send("__EXIT__".encode('utf-8'))
                 print("Exiting chat.")
+                update_status("Active")
                 active = False
                 break
             elif send == '/help':
